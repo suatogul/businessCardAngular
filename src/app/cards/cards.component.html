@@ -1,6 +1,14 @@
 <main>
-  <h1 class="page-title">Business cards</h1>
-  <p class="page-description">You can see your business cards here.</p>
+  <div class="d-flex align-items-center">
+    <div class="flex-grow-1">
+      <h1 class="page-title">Business cards</h1>
+      <p class="page-description">You can see your business cards here.</p>
+    </div>
+    <button mat-flat-button color="primary" (click)="openAddCardModal()">
+      New Business Card
+    </button>
+  </div>
+
   <hr />
   <div class="cards">
     <div class="row">

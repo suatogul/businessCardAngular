@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { config } from 'rxjs';
+import { CardModalComponent } from './card-modal/card-modal.component';
 
 @Component({
   selector: 'app-cards',
@@ -14,9 +17,16 @@ export class CardsComponent implements OnInit {
     address:"Bern, Switzerland"
   }
 
-  constructor() { }
+  constructor(
+    public dialog:MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
 
+  openAddCardModal():void{
+    this.dialog.open(CardModalComponent, {
+      width:'400px'
+    })
+  }
 }
