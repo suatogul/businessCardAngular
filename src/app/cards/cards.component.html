@@ -12,14 +12,11 @@
   <hr />
   <div class="cards">
     <div class="row">
-      <div class="col-12 col-md-4 col-lg-3">
-        <app-card-item [card]="cardItem"></app-card-item>
-      </div>
-      <div class="col-12 col-md-4 col-lg-3">
-        <app-card-item [card]="cardItem"></app-card-item>
-      </div>
-      <div class="col-12 col-md-4 col-lg-3">
-        <app-card-item [card]="cardItem"></app-card-item>
+      <!-- *ngFor="let card of cards" -- "cards" comes from .ts file of the same module. It is the chunk of data -->
+      <div class="col-12 col-md-4 col-lg-3" *ngFor="let card of cards">
+        <!--[card]="card" --- [card] keyword will be sent to the below component as this name (card-item.component.ts). And "card" is the data will be sent from the written component or module (cards.component.ts) -->
+        <app-card-item [card]="card"></app-card-item>
+        <!-- <app-card-item [card]="cardItem"></app-card-item> -->
       </div>
     </div>
   </div>

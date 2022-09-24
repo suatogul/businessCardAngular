@@ -6,8 +6,35 @@
   <mat-card-content>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">{{ card.phone }}</li>
-      <li class="list-group-item">{{ card.email }}</li>
-      <li class="list-group-item">{{ card.address }}</li>
+
+      <li class="list-group-item">
+        <span *ngIf="card.email"> {{ card.email }}</span>
+        <small class="text-warning no-content" *ngIf="!card.email"
+          >There is no email</small
+        >
+      </li>
+
+      <li class="list-group-item">
+        <span *ngIf="card.address"> {{ card.address }}</span>
+        <small class="text-warning no-content" *ngIf="!card.address"
+          >There is no address</small
+        >
+      </li>
+      <!-- 
+        Here adding conditionalhtml elements. This is a bit long way
+        <li class="list-group-item" *ngIf="card.email; else noEmail">
+        {{ card.email }}
+      </li>
+      <ng-template #noEmail>
+        <small class="text-warning no-content">There is no email</small>
+      </ng-template>
+
+      <li class="list-group-item" *ngIf="card.address; else noAddress">
+        {{ card.address }}
+      </li>
+      <ng-template #noAddress>
+        <small class="text-warning no-content">There is no address</small>
+      </ng-template> -->
     </ul>
   </mat-card-content>
 </mat-card>
