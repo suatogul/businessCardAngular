@@ -29,4 +29,8 @@ export class CardService {
   // <Card> data model will be gotten from Card interface. When you send a request from this api, it will get data in an array as Card interface.
       return this.http.get<Card[]>(this.apiUrl + '/cards')
   }
+// (card:Card) card (post data) will be taken from card-modal.components.ts
+  addCard(card:Card){
+    return this.http.post(this.apiUrl + '/cards',card)
+  }
 }

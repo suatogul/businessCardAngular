@@ -34,8 +34,18 @@ export class CardsComponent implements OnInit {
   }
 
   openAddCardModal():void{
-    this.dialog.open(CardModalComponent, {
+    // this.dialog.open(CardModalComponent, {
+    //   width:'400px'
+    // });
+    // After adding new business card (click add button in the modal), we want to print it
+    const dialog= this.dialog.open(CardModalComponent, {
       width:'400px'
+    });
+      dialog.afterClosed().subscribe(res=>{
+      if(res){
+        this.getCards();
+        console.log("after closing working")
+      }
     });
   }
 
