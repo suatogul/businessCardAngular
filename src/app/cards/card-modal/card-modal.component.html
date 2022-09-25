@@ -33,7 +33,12 @@
 <mat-dialog-actions align="end">
   <!-- if there is data delete button will be appeared -->
   <div class="flex-grow-1 text-start" *ngIf="data">
-    <button mat-stroked-button color="warn" (click)="deleteCard()">
+    <button
+      mat-stroked-button
+      color="warn"
+      (click)="deleteCard()"
+      [disabled]="showSpinner"
+    >
       Delete
     </button>
   </div>
@@ -43,7 +48,7 @@
       mat-flat-button
       color="primary"
       (click)="data ? updateCard() : addCard()"
-      [disabled]="cardForm.invalid"
+      [disabled]="cardForm.invalid || showSpinner"
     >
       {{ data ? "Edit" : "Add" }}
     </button>
