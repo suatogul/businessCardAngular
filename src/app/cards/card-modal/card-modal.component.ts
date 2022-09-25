@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CardService } from 'src/app/services/card.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Card } from 'src/app/models/card';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-card-modal',
   templateUrl: './card-modal.component.html',
@@ -38,31 +39,21 @@ export class CardModalComponent implements OnInit {
 
   addCard():void{
     this.showSpinner=true;
-    // console.log("card modal form" + this.cardForm.value);
     // (this.cardForm.value) this is the form data and will be sent service
     this.cardService.addCard(this.cardForm.value)
-    .subscribe((res:any)=>{
-      console.log(res);
-      // this._snackBar.open(message, action); message will be res and action is ""
-      this._snackBar.open(res || "New Business Card was added successfuly", "",{duration:4000});
-     this.cardService.getCards();
-     this.showSpinner=false;
-//this.dialogRef.close(); This statement is closing the opened modal 
-      this.dialogRef.close();
-    })
+      .subscribe({
+        next:(res:any)=>{this.getSuccess(res || "Business Card was added successfuly")},
+        error:(err:any)=>{this.getError(err.message || "There is a problem while adding business card!")}
+      })
   }
-
+// Writing way of "Subscribe" as in update card is depricated so it should be changed as addCard
   updateCard():void{
     this.showSpinner=true;
       this.cardService.updateCard(this.cardForm.value,this.data.id)
       .subscribe((res:any)=> {
-        console.log(res);
-        this._snackBar.open(res || "Business Card was edited successfuly", "",{duration:4000});
-        
-        this.cardService.getCards();
-        this.showSpinner=false;
-        //this.dialogRef.close(); This statement is closing the opened modal 
-        this.dialogRef.close();
+        this.getSuccess(res || "Business Card was edited successfuly")
+      },(err:any)=>{
+        this.getError(err.message || "There is a problem while updating business card!");
       });
   }
 
@@ -70,12 +61,24 @@ export class CardModalComponent implements OnInit {
     this.showSpinner=true;
     this.cardService.deleteCard(this.data.id)
     .subscribe((res:any)=>{
-      this._snackBar.open(res || "Business Card was deleted successfuly", "",{duration:4000});
-      this.cardService.getCards();
-      this.showSpinner=false;
-      this.dialogRef.close();
+      this.getSuccess(res || "Business Card was deleted successfuly")
+    },(err:any)=>{
+      this.getError(err.message || "There is a problem while deleting business card!");
     })
   }
 
+  getSuccess(message:string):void{
+        // this._snackBar.open(message, action); message will be res and action is ""
+    this._snackBar.open(message, "",{duration:4000});
+    this.cardService.getCards();
+    this.showSpinner=false;
+//this.dialogRef.close(); This statement is closing the opened modal 
+    this.dialogRef.close();
+  }
+
+  getError(message:string){
+    this._snackBar.open(message, "",{duration:4000});
+    this.showSpinner=false;
+  }
   
 }
