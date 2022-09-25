@@ -12,7 +12,7 @@ import { Card } from 'src/app/models/card';
 export class CardModalComponent implements OnInit {
 
   cardForm!:FormGroup;
-
+  showSpinner:boolean=false;
   constructor(
     private _snackBar: MatSnackBar,
     // This is the reference of the opened model
@@ -37,6 +37,7 @@ export class CardModalComponent implements OnInit {
   }
 
   addCard():void{
+    this.showSpinner=true;
     // console.log("card modal form" + this.cardForm.value);
     // (this.cardForm.value) this is the form data and will be sent service
     this.cardService.addCard(this.cardForm.value)
@@ -45,28 +46,33 @@ export class CardModalComponent implements OnInit {
       // this._snackBar.open(message, action); message will be res and action is ""
       this._snackBar.open(res || "New Business Card was added successfuly", "",{duration:4000});
      this.cardService.getCards();
+     this.showSpinner=false;
 //this.dialogRef.close(); This statement is closing the opened modal 
       this.dialogRef.close();
     })
   }
 
   updateCard():void{
+    this.showSpinner=true;
       this.cardService.updateCard(this.cardForm.value,this.data.id)
       .subscribe((res:any)=> {
         console.log(res);
         this._snackBar.open(res || "Business Card was edited successfuly", "",{duration:4000});
         
         this.cardService.getCards();
+        this.showSpinner=false;
         //this.dialogRef.close(); This statement is closing the opened modal 
         this.dialogRef.close();
       });
   }
 
   deleteCard():void{
+    this.showSpinner=true;
     this.cardService.deleteCard(this.data.id)
     .subscribe((res:any)=>{
       this._snackBar.open(res || "Business Card was deleted successfuly", "",{duration:4000});
       this.cardService.getCards();
+      this.showSpinner=false;
       this.dialogRef.close();
     })
   }

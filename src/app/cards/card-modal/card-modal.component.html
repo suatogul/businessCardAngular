@@ -2,6 +2,10 @@
   {{ data ? "Edit Business Card" : "Add new Business Card" }}
 </h2>
 <mat-dialog-content class="mat-typography">
+  <div *ngIf="showSpinner">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <br />
+  </div>
   <!-- [formGroup]="cardForm" -- cardForm comes from .ts file-->
   <form class="example-form" [formGroup]="cardForm">
     <mat-form-field class="example-full-width" appearance="fill">
