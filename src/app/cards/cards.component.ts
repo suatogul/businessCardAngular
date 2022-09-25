@@ -13,7 +13,7 @@ export class CardsComponent implements OnInit {
 
   // If we don't add "!" cards will be give an error, since cards variable is empty
   // the cards varible will be used in the .html file to list the items (it will be written as <div class="col-12 col-md-4 col-lg-3" *ngFor="let card of cards">) here "cards" is our variable which holds the all getData 
-  cards!:Card[];
+  // cards!:Card[]; It is taken  from card.service.ts
 
   // This is previous data. From here we print to the screen. But now we will get from API
   // cardItem={
@@ -26,11 +26,11 @@ export class CardsComponent implements OnInit {
   constructor(
     public dialog:MatDialog,
     // From cardService the data will be taken
-    private cardService:CardService
+    public cardService:CardService
   ) { }
 
   ngOnInit(): void {
-    this.getCards();
+    this.cardService.getCards();
   }
 
   openAddCardModal():void{
@@ -40,29 +40,19 @@ export class CardsComponent implements OnInit {
       width:'400px'
     });
  */
-    const dialog= this.dialog.open(CardModalComponent, {
-      width:'400px'
-    });
+    this.dialog.open(CardModalComponent, {width:'400px'});
       
     /*  after closing the modal in the card-modal.component.ts with this statement 
    this.dialogRef.close(true);  it should return smt that we can use in subscribe as 'res'
    */
-      dialog.afterClosed().subscribe(res=>{
-      if(res){
-         // After adding new business card (click add button in the modal), it will again run service for getCards() to refresh the list
-        this.getCards();
-        console.log("after closing working")
-      }
-    });
+    //   dialog.afterClosed().subscribe(res=>{
+    //   if(res){
+    //      // After adding new business card (click add button in the modal), it will again run service for getCards() to refresh the list
+    //     this.getCards();
+    //     console.log("after closing working")
+    //   }
+    // });
   }
 
-  getCards(): void{
-    this.cardService.getCards()
-    .subscribe((res: Card[])=>{
-      console.log("res",res);
-      this.cards=res;
-    }
-
-    )
-  }
+  // There was here getCards function to get data from card service but no need anymore
 }

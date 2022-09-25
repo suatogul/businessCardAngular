@@ -37,17 +37,28 @@ export class CardModalComponent implements OnInit {
   }
 
   addCard():void{
-    console.log("card modal form" + this.cardForm.value);
+    // console.log("card modal form" + this.cardForm.value);
     // (this.cardForm.value) this is the form data and will be sent service
     this.cardService.addCard(this.cardForm.value)
     .subscribe((res:any)=>{
       console.log(res);
       // this._snackBar.open(message, action); message will be res and action is ""
       this._snackBar.open(res || "New Business Card was added successfuly", "",{duration:4000});
-     
+     this.cardService.getCards();
 //this.dialogRef.close(); This statement is closing the opened modal 
-      this.dialogRef.close(true);
+      this.dialogRef.close();
     })
   }
 
+  updateCard():void{
+      this.cardService.updateCard(this.cardForm.value,this.data.id)
+      .subscribe((res:any)=> {
+        console.log(res);
+        this._snackBar.open(res || "Business Card was edited successfuly", "",{duration:4000});
+        
+        this.cardService.getCards();
+        //this.dialogRef.close(); This statement is closing the opened modal 
+        this.dialogRef.close();
+      });
+  }
 }

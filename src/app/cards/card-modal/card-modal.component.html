@@ -1,4 +1,6 @@
-<h2 mat-dialog-title>Add new Business Card</h2>
+<h2 mat-dialog-title>
+  {{ data ? "Edit Business Card" : "Add new Business Card" }}
+</h2>
 <mat-dialog-content class="mat-typography">
   <!-- [formGroup]="cardForm" -- cardForm comes from .ts file-->
   <form class="example-form" [formGroup]="cardForm">
@@ -26,5 +28,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="addCard()">Add</button>
+  <button mat-button (click)="data ? updateCard() : addCard()">
+    {{ data ? "Edit" : "Add" }}
+  </button>
 </mat-dialog-actions>
