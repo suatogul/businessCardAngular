@@ -39,6 +39,7 @@
       mat-flat-button
       color="primary"
       (click)="data ? updateCard() : addCard()"
+      [disabled]="cardForm.invalid"
     >
       {{ data ? "Edit" : "Add" }}
     </button>
