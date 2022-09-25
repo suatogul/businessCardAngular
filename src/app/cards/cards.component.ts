@@ -34,15 +34,22 @@ export class CardsComponent implements OnInit {
   }
 
   openAddCardModal():void{
-    // this.dialog.open(CardModalComponent, {
-    //   width:'400px'
-    // });
-    // After adding new business card (click add button in the modal), we want to print it
+    /*
+    Normally it was written as below but to use this statement for closing the modal it is assigned a variableas dialog
+    this.dialog.open(CardModalComponent, {
+      width:'400px'
+    });
+ */
     const dialog= this.dialog.open(CardModalComponent, {
       width:'400px'
     });
+      
+    /*  after closing the modal in the card-modal.component.ts with this statement 
+   this.dialogRef.close(true);  it should return smt that we can use in subscribe as 'res'
+   */
       dialog.afterClosed().subscribe(res=>{
       if(res){
+         // After adding new business card (click add button in the modal), it will again run service for getCards() to refresh the list
         this.getCards();
         console.log("after closing working")
       }
