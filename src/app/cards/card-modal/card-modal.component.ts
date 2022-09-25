@@ -61,4 +61,15 @@ export class CardModalComponent implements OnInit {
         this.dialogRef.close();
       });
   }
+
+  deleteCard():void{
+    this.cardService.deleteCard(this.data.id)
+    .subscribe((res:any)=>{
+      this._snackBar.open(res || "Business Card was deleted successfuly", "",{duration:4000});
+      this.cardService.getCards();
+      this.dialogRef.close();
+    })
+  }
+
+  
 }

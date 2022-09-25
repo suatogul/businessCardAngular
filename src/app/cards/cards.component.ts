@@ -14,15 +14,16 @@ export class CardsComponent implements OnInit {
   // If we don't add "!" cards will be give an error, since cards variable is empty
   // the cards varible will be used in the .html file to list the items (it will be written as <div class="col-12 col-md-4 col-lg-3" *ngFor="let card of cards">) here "cards" is our variable which holds the all getData 
   // cards!:Card[]; It is taken  from card.service.ts
-
-  // This is previous data. From here we print to the screen. But now we will get from API
-  // cardItem={
-  //   title:"Frontend Designer",
-  //   name:"Suat",
-  //   phone:"077 890 98 98",
-  //   email:"example@gmail.com",
-  //   address:"Bern"
-  // }
+/*
+  This is previous data. From here we print to the screen. But now we will get from API
+  cardItem={
+    title:"Frontend Designer",
+    name:"Suat",
+    phone:"077 890 98 98",
+    email:"example@gmail.com",
+    address:"Bern"
+  }
+  */
   constructor(
     public dialog:MatDialog,
     // From cardService the data will be taken
@@ -34,12 +35,7 @@ export class CardsComponent implements OnInit {
   }
 
   openAddCardModal():void{
-    /*
-    Normally it was written as below but to use this statement for closing the modal it is assigned a variableas dialog
-    this.dialog.open(CardModalComponent, {
-      width:'400px'
-    });
- */
+
     this.dialog.open(CardModalComponent, {width:'400px'});
       
     /*  after closing the modal in the card-modal.component.ts with this statement 

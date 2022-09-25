@@ -27,8 +27,20 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="data ? updateCard() : addCard()">
-    {{ data ? "Edit" : "Add" }}
-  </button>
+  <!-- if there is data delete button will be appeared -->
+  <div class="flex-grow-1 text-start" *ngIf="data">
+    <button mat-stroked-button color="warn" (click)="deleteCard()">
+      Delete
+    </button>
+  </div>
+  <div>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="data ? updateCard() : addCard()"
+    >
+      {{ data ? "Edit" : "Add" }}
+    </button>
+  </div>
 </mat-dialog-actions>
