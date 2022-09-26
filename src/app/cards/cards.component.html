@@ -13,6 +13,17 @@
   <div class="cards">
     <div class="row">
       <!-- *ngFor="let card of cards" -- "cards" comes from .ts file of the same module. It is the chunk of data -->
+      <div class="col-12" *ngIf="!cardService.cards">
+        <span>Business cards are loading</span>
+      </div>
+      <div class="col-12" *ngIf="cardService.cards?.length === 0">
+        <span
+          >You don't have any business card yet. To add new business card
+          <a class="text-primary" (click)="openAddCardModal()"
+            >Click here.</a
+          ></span
+        >
+      </div>
       <div
         class="col-12 col-md-4 col-lg-3"
         *ngFor="let card of cardService.cards"

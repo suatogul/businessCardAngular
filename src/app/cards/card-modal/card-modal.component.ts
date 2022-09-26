@@ -2,9 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CardService } from 'src/app/services/card.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Card } from 'src/app/models/card';
-import { Observable } from 'rxjs';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 @Component({
   selector: 'app-card-modal',
   templateUrl: './card-modal.component.html',
@@ -15,7 +14,7 @@ export class CardModalComponent implements OnInit {
   cardForm!:FormGroup;
   showSpinner:boolean=false;
   constructor(
-    private _snackBar: MatSnackBar,
+    private snackBarService:SnackbarService,
     // This is the reference of the opened model
     private dialogRef:MatDialogRef<CardModalComponent>,
     private fb:FormBuilder,
@@ -69,7 +68,7 @@ export class CardModalComponent implements OnInit {
 
   getSuccess(message:string):void{
         // this._snackBar.open(message, action); message will be res and action is ""
-    this._snackBar.open(message, "",{duration:4000});
+    this.snackBarService.createSnackbar("success",message)
     this.cardService.getCards();
     this.showSpinner=false;
 //this.dialogRef.close(); This statement is closing the opened modal 
@@ -77,7 +76,7 @@ export class CardModalComponent implements OnInit {
   }
 
   getError(message:string){
-    this._snackBar.open(message, "",{duration:4000});
+    this.snackBarService.createSnackbar("error",message)
     this.showSpinner=false;
   }
   
